@@ -14,8 +14,6 @@ class LoadsController extends Controller
     {
         if ($request->lang) {
             app()->setLocale($request->lang);
-        } else {
-            $request->lang = app()->getLocale();
         }
         $loads = Load::with(['fromCity', 'toCity']);
         if ($request->from) {
