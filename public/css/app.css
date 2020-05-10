@@ -1,0 +1,48 @@
+body {
+  padding-top: 5rem;
+}
+
+.starter-template {
+  padding: 3rem 1.5rem;
+}
+
+.trasportation-table {
+  margin-top: 30px;
+  width: 50%;
+}
+
+.trasportation-table > thead > tr:first-child > td,
+.trasportation-table > tbody > tr:first-child > td {
+  border: none;
+}
+
+.trasportation-table tr {
+  cursor: pointer;
+}
+
+.trasportation-table tr:hover {
+  background-color: lightgray;
+}
+
+.load-photo {
+  float: left;
+  width: 100px;
+}
+
+.map {
+  float: left;
+  width: 200px;
+  height: 200px;
+  display: inline-block;
+  float: right;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.trasportation-table .path {
+  font-weight: bold;
+  font-size: 20px;
+}
+
