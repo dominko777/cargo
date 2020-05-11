@@ -10,22 +10,12 @@ const router = new VueRouter({
     mode: 'history',
     routes: [
         {
-            path: '/',
+            path: '/:lang?',
             component: Transportations,
-            children: [
-                {
-                  path: 'from/:from',
-                  component: Transportations
-                },
-                {
-                   path: ':lang',
-                   component: Transportations
-                },
-                {
-                    path: ':lang/from/:from',
-                    component: Transportations
-                }
-            ]
+        },
+        {
+            path: '/:lang?/from/:from',
+            component: Transportations
         }
     ],
 })

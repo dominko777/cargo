@@ -1945,7 +1945,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      loads: []
+      loads: [],
+      loadActiveId: null
     };
   },
   mounted: function mounted() {
@@ -1953,30 +1954,21 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     showLoadInfo: function showLoadInfo(load) {
-      var i;
+      this.loadActiveId = load.id;
+      var map = $(this.$refs['map-' + load.id]);
 
-      for (i = 0; i < this.loads.length; i++) {
-        if (this.loads[i].id === load.id) {
-          vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.loads[i], 'showInfo', true);
-
-          if (!this.loads[i].map) {
-            $('#map-' + this.loads[i].id).jHERE({
-              enable: ['behavior'],
-              center: [50.4, 30.5],
-              zoom: 4
-            }).jHERE('marker', [this.loads[i].from_city.lat, this.loads[i].from_city.lng], {
-              group: 'cities',
-              fill: 'blue'
-            }).jHERE('marker', [this.loads[i].to_city.lat, this.loads[i].to_city.lng], {
-              group: 'cities',
-              fill: 'green'
-            }).jHERE('route', [this.loads[i].from_city.lat, this.loads[i].from_city.lng], [this.loads[i].to_city.lat, this.loads[i].to_city.lng]);
-          }
-
-          this.loads[i].map = true;
-        } else {
-          vue__WEBPACK_IMPORTED_MODULE_1___default.a.set(this.loads[i], 'showInfo', false);
-        }
+      if (!map.html()) {
+        $(this.$refs['map-' + load.id]).jHERE({
+          enable: ['behavior'],
+          center: [50.4, 30.5],
+          zoom: 4
+        }).jHERE('marker', [load.fromCity.lat, load.fromCity.lng], {
+          group: 'cities',
+          fill: 'blue'
+        }).jHERE('marker', [load.toCity.lat, load.toCity.lng], {
+          group: 'cities',
+          fill: 'green'
+        }).jHERE('route', [load.fromCity.lat, load.fromCity.lng], [load.toCity.lat, load.toCity.lng]);
       }
     },
     fecthLoads: function fecthLoads() {
@@ -1989,7 +1981,7 @@ __webpack_require__.r(__webpack_exports__);
       axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(location.origin + '/api/loads', {
         params: params
       }).then(function (response) {
-        _this.loads = response.data;
+        _this.loads = response.data.data;
       }, function (error) {
         console.log(error);
       });
@@ -19605,8 +19597,8 @@ var render = function() {
       _c("table", { staticClass: "table trasportation-table" }, [
         _c(
           "tbody",
-          _vm._l(_vm.loads, function(load, k) {
-            return _c("tr", { key: k }, [
+          _vm._l(_vm.loads, function(load) {
+            return _c("tr", { key: load.id }, [
               _c("td", { staticClass: "path w-50" }, [
                 _c(
                   "div",
@@ -19620,9 +19612,9 @@ var render = function() {
                   [
                     _vm._v(
                       "\n                            " +
-                        _vm._s(load.fromCity) +
+                        _vm._s(load.fromCityName) +
                         " - " +
-                        _vm._s(load.toCity) +
+                        _vm._s(load.toCityName) +
                         "\n                        "
                     )
                   ]
@@ -19635,8 +19627,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: load.showInfo,
-                        expression: "load.showInfo"
+                        value: _vm.loadActiveId === load.id,
+                        expression: "loadActiveId === load.id"
                       }
                     ],
                     staticClass: "display: flex; justify-content:space-around;",
@@ -19658,8 +19650,9 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _c("div", {
-                      staticClass: "inline-block map",
-                      attrs: { id: "map-" + load.id }
+                      ref: "map-" + load.id,
+                      refInFor: true,
+                      staticClass: "inline-block map"
                     })
                   ]
                 )
@@ -34798,18 +34791,11 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
   routes: [{
-    path: '/',
-    component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"],
-    children: [{
-      path: 'from/:from',
-      component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }, {
-      path: ':lang',
-      component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }, {
-      path: ':lang/from/:from',
-      component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"]
-    }]
+    path: '/:lang?',
+    component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"]
+  }, {
+    path: '/:lang?/from/:from',
+    component: _components_Transportations__WEBPACK_IMPORTED_MODULE_2__["default"]
   }]
 });
 var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({

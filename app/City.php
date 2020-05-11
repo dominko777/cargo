@@ -11,5 +11,5 @@ class City extends Model
 
     public $translatable = ['name'];
 
-    protected $fillable = ['name', 'lat', 'lng'];
+    protected $fillable = ['name', 'lat', 'lng', 'slug'];
 }

@@ -12,11 +12,11 @@ class CitiesTableSeeder extends Seeder
      */
     public function run()
     {
-        City::create(['lat' => 50.431782, 'lng' => 30.516382, 'name' => ''])
+        City::create(['lat' => 50.431782, 'lng' => 30.516382, 'name' => '', 'slug' => 'kyiv'])
             ->setTranslations('name', ['en' => 'Kyiv', 'uk' => 'Київ' ])->save();
-        City::create(['lat' => 49.23278, 'lng' => 28.48097, 'name' => ''])
+        City::create(['lat' => 49.23278, 'lng' => 28.48097, 'name' => '', 'slug' => 'vinnytsa'])
             ->setTranslations('name', ['en' => 'Vinnytsa', 'uk' => 'Вінниця' ])->save();
-        City::create(['lat' => 49.842957, 'lng' => 24.031111, 'name' => ''])
+        City::create(['lat' => 49.842957, 'lng' => 24.031111, 'name' => '', 'slug' => 'lviv'])
             ->setTranslations('name', ['en' => 'Lviv', 'uk' => 'Львів' ])->save();
     }
 }
